@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Voca Demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	
+</head>
+<body>
+
+	<div id="app">
+		<h1>Voca.js {{v.version}}</h1>
+		<input	v-model="strText"/>
+		<br>
+		{{strText}}:<br>
+		{{v.camelCase(strText)}}<br>
+		{{v.latinise(strText)}}<br>
+		{{v.graphemes(strText)}}<br>
+		{{v.slugify(strText)}}<br>
+		{{v.first(strText)}}<br>
+		{{v.last(strText)}}<br>
+		{{v.capitalize(strText)}}<br>
+
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="main.js"></script>
+</body>
+</html>
