@@ -1,11 +1,12 @@
 /*Global: Vue v*/
-((Vue, window, v) => {
+((Vue, window, v, _) => {
 	var app = new Vue({
 		el: '#app',
 		data: {
 			strText: 'hello, world. My Dear Friends',
 			position: 2,
-			v:v,
+			v: v,
+			_: _,
 			apiList: [
 				//Case
 				{
@@ -40,7 +41,7 @@
 					param: {
 						position: 2,
 					}
-				},  {
+				}, {
 					api: 'codePointAt',
 					param: {
 						position: 2,
@@ -48,7 +49,7 @@
 				}, {
 					api: 'first',
 					param: {
-						length:2
+						length: 2
 					}
 				}, {
 					api: 'graphemeAt',
@@ -92,8 +93,91 @@
 						end: '(...)',
 					}
 				},
+				//Count
+				{
+					api: 'count',
+
+				},
+				{
+					api: 'countGraphemes',
+
+				},
+				{
+					api: 'countSubstrings',
+					param: {
+						substring: 'boys'
+					}
+
+				},
+				{
+					api: 'countWhere',
+					param: {
+						predicate: function (v) {
+							return v === 'l';
+						}
+					}
+
+				}, {
+					api: 'countWords',
+					param: {
+						pattern: /[^\s]+/g,
+						flags: ''
+					}
+
+				},
+				//escape
+				{
+					api: 'escapeHtml',
+
+
+				}, {
+					api: 'escapeRegExp',
+
+
+				}, {
+					api: 'unescapeHtml',
+
+
+				},
+				// format
+				{
+					api: 'sprintf',
+					param: {
+						replacements: 'good',
+
+					}
+				}, {
+					api: 'vprintf',
+					param: {
+						replacements: ['good', 'day'],
+
+					}
+				},
+				//index
+				{
+					api: 'indexOf',
+					param: {
+						search: 'lo',
+						fromIndex: 0
+					}
+				},
+				{
+					api: 'lastIndexOf',
+					param: {
+						search: 'lo',
+						fromIndex: -1
+					}
+				},
+				{
+					api: 'search',
+					param: {
+						pattern: /rn/,
+						fromIndex: 0
+					}
+				},
 
 				//Manipulate
+
 				{
 					api: 'insert',
 					param: {
@@ -102,17 +186,92 @@
 					}
 				}, {
 					api: 'latinise',
+				},
+				{
+					api: 'pad',
+					param: {
+						length: 40,
+						pad: '-',
+					}
+				},
+				{
+					api: 'padLeft',
+					param: {
+						length: 40,
+						pad: '-',
+					}
+				},
+				{
+					api: 'padRight',
+					param: {
+						length: 40,
+						pad: '-',
+					}
+				},
+				{
+					api: 'repeat',
+					param: {
+						times: 5,
+
+					}
 				}, {
-					api: 'graphemes',
+					api: 'replace',
+					param: {
+						pattern: /lo/,
+						replacement: '10'
+					}
+				},
+				{
+					api: 'replaceAll',
+					param: {
+						pattern: /l/,
+						replacement: '*'
+					}
+				},
+				{
+					api: 'reverse',
+				}, {
+					api: 'reverseGrapheme',
 				}, {
 					api: 'slugify',
 				}, {
-					api: 'first',
+					api: 'splice',
+					param: {
+						start: 1,
+						deleteCount: 3,
+						toAdd:'good bye'
+					}
 				}, {
-					api: 'last',
+					api: 'tr',
+					param: {
+						from: 'el',
+						to: 'ip'
+					}
 				}, {
-					api: 'capitalize',
-				}
+					api: 'trim',
+					param: {
+						whitespace: '-',
+
+					}
+				}, {
+					api: 'trimLeft',
+					param: {
+						whitespace: '-',
+
+					}
+				}, {
+					api: 'trimRight',
+					param: {
+						whitespace: '-',
+
+					}
+				},
+				//Query
+				//Split
+				{
+					api: 'graphemes',
+				},
+				//Strip
 			]
 
 		},
@@ -132,6 +291,7 @@
 					let resultList = apiList.map((item) => {
 						let api = item.api;
 						let param = item.param;
+						let isError = false;
 						let parameters = [subject];
 
 
@@ -140,8 +300,15 @@
 								parameters.push(param[k]);
 							}
 						}
-						let result = v[api].apply(null, parameters);
+						let result;
+						try {
+							result = v[api].apply(null, parameters);
+						} catch (e) {
+							result = e.toString();
+							isError = true;
+						}
 						return {
+							isErr: isError,
 							api: 'v.' + api,
 							param: param,
 							result: result,
@@ -160,4 +327,4 @@
 	});
 
 	window.app = app;
-})(Vue, window, v);
+})(Vue, window, v, _);
