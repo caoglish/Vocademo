@@ -7,6 +7,7 @@
 			position: 2,
 			v: v,
 			_: _,
+			apiFilter: "",
 			apiList: [
 				//Case
 				{
@@ -21,9 +22,6 @@
 
 				}, {
 					api: 'lowerCase',
-
-				}, {
-					api: 'kebabCase',
 
 				}, {
 					api: 'snakeCase',
@@ -85,8 +83,7 @@
 						start: 1,
 						end: 4,
 					}
-				},
-				{
+				}, {
 					api: 'truncate',
 					param: {
 						length: 7,
@@ -97,22 +94,19 @@
 				{
 					api: 'count',
 
-				},
-				{
+				}, {
 					api: 'countGraphemes',
 
-				},
-				{
+				}, {
 					api: 'countSubstrings',
 					param: {
 						substring: 'boys'
 					}
 
-				},
-				{
+				}, {
 					api: 'countWhere',
 					param: {
-						predicate: function (v) {
+						predicate: function(v) {
 							return v === 'l';
 						}
 					}
@@ -160,15 +154,13 @@
 						search: 'lo',
 						fromIndex: 0
 					}
-				},
-				{
+				}, {
 					api: 'lastIndexOf',
 					param: {
 						search: 'lo',
 						fromIndex: -1
 					}
-				},
-				{
+				}, {
 					api: 'search',
 					param: {
 						pattern: /rn/,
@@ -186,29 +178,25 @@
 					}
 				}, {
 					api: 'latinise',
-				},
-				{
+				}, {
 					api: 'pad',
 					param: {
 						length: 40,
 						pad: '-',
 					}
-				},
-				{
+				}, {
 					api: 'padLeft',
 					param: {
 						length: 40,
 						pad: '-',
 					}
-				},
-				{
+				}, {
 					api: 'padRight',
 					param: {
 						length: 40,
 						pad: '-',
 					}
-				},
-				{
+				}, {
 					api: 'repeat',
 					param: {
 						times: 5,
@@ -220,15 +208,13 @@
 						pattern: /lo/,
 						replacement: '10'
 					}
-				},
-				{
+				}, {
 					api: 'replaceAll',
 					param: {
 						pattern: /l/,
 						replacement: '*'
 					}
-				},
-				{
+				}, {
 					api: 'reverse',
 				}, {
 					api: 'reverseGrapheme',
@@ -239,7 +225,7 @@
 					param: {
 						start: 1,
 						deleteCount: 3,
-						toAdd:'good bye'
+						toAdd: 'good bye'
 					}
 				}, {
 					api: 'tr',
@@ -265,13 +251,98 @@
 						whitespace: '-',
 
 					}
+				}, {
+					api: 'wordWrap',
+					param: {
+						options: {
+							width: 5,
+							newLine: '<br/>',
+							indent: '  '
+						},
+
+					}
 				},
 				//Query
+				{
+					api: 'endsWith',
+					param: {
+						end: 'lo',
+						position: 5,
+					}
+				}, {
+					api: 'includes',
+					param: {
+						search: 'o',
+						position: 5,
+					}
+				},{
+					api: 'isAlpha',
+				}, {
+					api: 'isAlphaDigit',
+				}, {
+					api: 'isAlphaDigit',
+				}, {
+					api: 'isBlank',
+				}, {
+					api: 'isDigit',
+				}, {
+					api: 'isEmpty',
+				}, {
+					api: 'isLowerCase',
+				}, {
+					api: 'isNumeric',
+				}, {
+					api: 'isString',
+				}, {
+					api: 'isUpperCase',
+				},
+				{
+					api: 'matches',
+					param: {
+						pattern: /[^\s]+/g,
+						flags: null,
+
+					}
+				},{
+					api: 'startsWith',
+					param: {
+						end: 'lo',
+						position: 5,
+					}
+				}, 
 				//Split
 				{
+					api: 'chars',
+				}, {
+					api: 'codePoints',
+				}, {
 					api: 'graphemes',
+				}, {
+					api: 'split',
+					param: {
+						separator: ',',
+						limit: 3,
+
+					}
+				}, {
+					api: 'words',
+					param: {
+						pattern: /[^\s]+/g,
+						flags: null,
+
+					}
 				},
 				//Strip
+				{
+					api: 'stripBom',
+				}, {
+					api: 'stripTags',
+					param: {
+						allowableTags: '<div>',
+						replacement: '-',
+
+					}
+				}
 			]
 
 		},
@@ -283,11 +354,16 @@
 			 */
 
 			result: {
-				get: function () {
+				get: function() {
 					let subject = this.strText;
 
 					let apiList = this.apiList;
-					console.log(v);
+
+					if (this.apiFilter !== '') {
+
+						apiList = apiList.filter((v) => v.api.includes(this.apiFilter));
+					}
+
 					let resultList = apiList.map((item) => {
 						let api = item.api;
 						let param = item.param;
@@ -319,7 +395,7 @@
 
 					return resultList;
 				},
-				set: function (newVal) {
+				set: function(newVal) {
 					console.log(newVal);
 				}
 			}
