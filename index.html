@@ -1,52 +1,86 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Voca Demo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	    crossorigin="anonymous">
+
 </head>
+
 <body>
-
 	<div id="app">
-		<h1>Voca.js {{v.version}}</h1>
-		<input	v-model="strText"/>
-		<input v-model="apiFilter" />
-		<br>
-		{{strText}}:<br>
-		<table class='table'>
-			<thead>
-			    <tr>
-				    <th scope="col">api</th>
-				   <th scope="col">parameter</th>
-				    <th scope="col">result</th>
-				     <th scope="col">ref</th>
-			    </tr>
-		  	</thead>
-		   	<tbody>
-		    	<tr v-for="r in result">
-				      <th scope="row">{{r.api}}</th>
-				      <td>
-				      	<span v-show='r.param' v-for='(item, key) in r.param'>
-				      	<span class="row">{{key}}:{{_.isRegExp(item)?item.toString():item}}</span>
-				      </td>
-				      <td><span v-bind:class="r.isErr?'badge badge-danger':''" >{{r.result}}</span></td>
-				      <td><a v-bind:href="'https://vocajs.com/'+r.ref" target="_blank" class="btn btn-primary">open</a></td>
-			    </tr>
-		    </tbody>
-		</table>
-		<br>
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4">Voca.js {{v.version}} Demo</h1>
+				<p class="lead">The Voca library offers helpful functions to make string manipulations comfortable.</p>
+				<hr class="my-4">
+				<p>
+					<a class="github-button" href="https://github.com/panzerdp/voca/" data-icon="octicon-star" data-size="large" aria-label="Star caoglish/vocademo on GitHub">Star Vocajs</a>
+					<a class="github-button ml-4" href="https://github.com/caoglish/vocademo" data-icon="octicon-star" data-size="large" aria-label="Star caoglish/vocademo on GitHub">Star Voca Demo</a>
+				</p>
+				<!-- Place this tag where you want the button to render. -->
 
-		
+				<a class="btn btn-primary btn-lg" href="https://vocajs.com/" role="button" target="_blank">Learn Voca</a>
+			</div>
+		</div>
+		<div class="container">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Sbuject</span>
+				</div>
+				<input type="text" aria-label="First name" v-model="strText" class="form-control">
+				<div class="input-group-prepend">
+					<span class="input-group-text">API Filter</span>
+				</div>
+				<input type="text" aria-label="Last name" v-model="apiFilter" class="form-control">
+			</div>
+			<div class='row justify-content-md-center mt-4'>
+<div class="alert alert-primary " role="alert">
+					{{strText}}
+				</div>
+			</div>
 
+			<table class='table'>
+				<thead>
+					<tr>
+						<th scope="col">api</th>
+						<th scope="col">parameter</th>
+						<th scope="col">result</th>
+						<th scope="col">ref</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="r in result">
+						<th scope="row">{{r.api}}</th>
+						<td>
+							<span v-show='r.param' v-for='(item, key) in r.param'>
+								<span class="row">{{key}}:{{_.isRegExp(item)?item.toString():item}}</span>
+						</td>
+						<td>
+							<span v-bind:class="r.isErr?'badge badge-danger':''">{{r.result}}</span>
+						</td>
+						<td>
+							<a v-bind:href="'https://vocajs.com/'+r.ref" target="_blank" class="btn btn-primary">open</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+		</div>
+		<!--container-->
 	</div>
-	
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	<script src="vocaApiList.js"></script>
 	<script src="main.js"></script>
 </body>
+
 </html>
